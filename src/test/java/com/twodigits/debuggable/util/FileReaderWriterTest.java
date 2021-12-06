@@ -18,11 +18,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FileReaderWriterTest {
 
+    private static final String WRITE_DIR = "./src/main/resources";
+
     FileReaderWriter readerWriter;
 
     @BeforeEach
     void setup() {
-        readerWriter = new FileReaderWriter();
+        readerWriter = new FileReaderWriter(WRITE_DIR);
     }
 
     @AfterEach

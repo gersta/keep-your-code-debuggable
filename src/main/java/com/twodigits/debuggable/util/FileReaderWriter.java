@@ -3,6 +3,8 @@ package com.twodigits.debuggable.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twodigits.debuggable.exceptions.LocalDataReadException;
 import com.twodigits.debuggable.exceptions.LocalDataWriteException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -11,14 +13,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class FileReaderWriter {
 
     private static final String FILE_EXTENSION = ".json";
-    private static final String WRITE_DIRECTORY = "./src/main/resources";
     private static final String READ_DIRECTORY = "./src/main/resources";
 
+    private final String writeDirectory;
+
+    public FileReaderWriter(@Value("${twodigits.debuggable.local-file.write-dir}") String writeDirectory) {
+        this.writeDirectory = writeDirectory;
+    }
+
     public File writeFile(String prefix, List<Integer> ids, Object data) {
-        File file = getFileHandle(prefix, WRITE_DIRECTORY, ids);
+        File file = getFileHandle(prefix, writeDirectory, ids);
+
+        log.debug("Trying to write file to {}", file.getAbsolutePath());
 
         try {
             new ObjectMapper().writeValue(file, data);
