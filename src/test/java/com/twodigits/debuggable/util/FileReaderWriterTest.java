@@ -1,7 +1,6 @@
 package com.twodigits.debuggable.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,22 +13,23 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FileReaderWriterTest {
 
-    private static final String WRITE_DIR = "./src/main/resources";
+    private static final String TEST_RESOURCES_DIR = "./src/test/resources";
 
     FileReaderWriter readerWriter;
 
     @BeforeEach
     void setup() {
-        readerWriter = new FileReaderWriter(WRITE_DIR);
+        readerWriter = new FileReaderWriter(TEST_RESOURCES_DIR, TEST_RESOURCES_DIR);
     }
 
     @AfterEach
     void tearDown() {
-        for (File file : Objects.requireNonNull(new File("./src/main/resources/").listFiles())) {
+        for (File file : Objects.requireNonNull(new File(TEST_RESOURCES_DIR).listFiles())) {
             file.delete();
         }
     }
@@ -50,7 +50,7 @@ class FileReaderWriterTest {
         String resultForwardSlashes = result.getPath().replace("\\", "/");
 
 
-        assertEquals("./src/main/resources/ABC_1_2_3.json", resultForwardSlashes);
+        assertEquals("./src/test/resources/ABC_1_2_3.json", resultForwardSlashes);
     }
 
 
@@ -72,7 +72,7 @@ class FileReaderWriterTest {
 
     @Test
     void read_file_from_expected_location() throws IOException {
-        new ObjectMapper().writeValue(new File("./src/main/resources/READ_7_8_9.json"), "Hello World");
+        new ObjectMapper().writeValue(new File(TEST_RESOURCES_DIR + "/READ_7_8_9.json"), "Hello World");
 
         String result = readerWriter.readFile("READ", Arrays.asList(7, 8, 9), String.class);
 

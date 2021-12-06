@@ -17,12 +17,16 @@ import java.util.stream.Collectors;
 public class FileReaderWriter {
 
     private static final String FILE_EXTENSION = ".json";
-    private static final String READ_DIRECTORY = "./src/main/resources";
 
     private final String writeDirectory;
+    private final String readDirectory;
 
-    public FileReaderWriter(@Value("${twodigits.debuggable.local-file.write-dir}") String writeDirectory) {
+    public FileReaderWriter(
+            @Value("${twodigits.debuggable.local-file.write-dir}") String writeDirectory,
+            @Value("${twodigits.debuggable.local-file.read-dir}") String readDirectory
+    ) {
         this.writeDirectory = writeDirectory;
+        this.readDirectory = readDirectory;
     }
 
     public File writeFile(String prefix, List<Integer> ids, Object data) {
@@ -40,7 +44,7 @@ public class FileReaderWriter {
     }
 
     public <T> T readFile(String prefix, List<Integer> ids, Class<T> model) {
-        File file = getFileHandle(prefix, READ_DIRECTORY, ids);
+        File file = getFileHandle(prefix, readDirectory, ids);
 
         try {
             return new ObjectMapper().readValue(file, model);
