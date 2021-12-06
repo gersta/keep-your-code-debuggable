@@ -3,12 +3,14 @@ package com.twodigits.debuggable.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twodigits.debuggable.exceptions.LocalDataReadException;
 import com.twodigits.debuggable.exceptions.LocalDataWriteException;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class FileReaderWriter {
 
     private static final String FILE_EXTENSION = ".json";
