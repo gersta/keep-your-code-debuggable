@@ -1,7 +1,7 @@
 package com.twodigits.debuggable.controller;
 
 import com.twodigits.debuggable.model.CommunityMember;
-import com.twodigits.debuggable.service.CommunityMemberService;
+import com.twodigits.debuggable.service.ICommunityMemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +15,9 @@ import java.util.List;
 @Slf4j
 public class CommunityMemberController {
 
-    private final CommunityMemberService service;
+    private final ICommunityMemberService service;
 
-    public CommunityMemberController(CommunityMemberService service) {
+    public CommunityMemberController(ICommunityMemberService service) {
         this.service = service;
     }
 
