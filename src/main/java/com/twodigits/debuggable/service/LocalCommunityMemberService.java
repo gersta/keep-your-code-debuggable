@@ -1,7 +1,6 @@
 package com.twodigits.debuggable.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.twodigits.debuggable.exceptions.LocalDataReadException;
 import com.twodigits.debuggable.model.CommunityMember;
 import com.twodigits.debuggable.util.FileReaderWriter;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,9 @@ public class LocalCommunityMemberService implements ICommunityMemberService {
 
     private final FileReaderWriter fileReader;
 
-    public LocalCommunityMemberService(FileReaderWriter fileReader) {
+    public LocalCommunityMemberService(
+            FileReaderWriter fileReader
+    ) {
         this.fileReader = fileReader;
     }
 
