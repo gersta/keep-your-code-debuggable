@@ -38,14 +38,14 @@ class FileReaderWriterTest {
 
     @Test
     void file_exists() {
-        File result = readerWriter.writeFile("ABC", Arrays.asList(1, 2, 3), "Hello World");
+        File result = readerWriter.writeFile("ABC", Arrays.asList("1", "2", "3"), "Hello World");
 
         assertTrue(result.exists());
     }
 
     @Test
     void file_exists_at_expected_location() {
-        File result = readerWriter.writeFile("ABC", Arrays.asList(1, 2, 3), "Hello World");
+        File result = readerWriter.writeFile("ABC", Arrays.asList("1", "2", "3"), "Hello World");
 
         // TODO: quick solution, needs to be overthought
         String resultForwardSlashes = result.getPath().replace("\\", "/");
@@ -57,7 +57,7 @@ class FileReaderWriterTest {
 
     @Test
     void file_contains_given_data() throws IOException {
-        File result = readerWriter.writeFile("ABC", Arrays.asList(1, 2, 3), "Hello World");
+        File result = readerWriter.writeFile("ABC", Arrays.asList("1", "2", "3"), "Hello World");
 
         String content = Files.lines(Path.of(result.getPath())).collect(Collectors.joining("\n"));
 
@@ -66,7 +66,7 @@ class FileReaderWriterTest {
 
     @Test
     void file_has_given_name() {
-        File result = readerWriter.writeFile("ABC", Arrays.asList(1, 2, 3), "Hello World");
+        File result = readerWriter.writeFile("ABC", Arrays.asList("1", "2", "3"), "Hello World");
 
         assertEquals("ABC_1_2_3.json", result.getName());
     }
@@ -82,7 +82,7 @@ class FileReaderWriterTest {
                 .build();
         new ObjectMapper().writeValue(new File(TEST_RESOURCES_DIR + "/READ_7_8_9.json"), member);
 
-        CommunityMember result = readerWriter.readFile("READ", Arrays.asList(7, 8, 9), new TypeReference<CommunityMember>() {});
+        CommunityMember result = readerWriter.readFile("READ", Arrays.asList("7", "8", "9"), new TypeReference<CommunityMember>() {});
 
         assertAll(
                 () -> assertEquals("1", result.getId())

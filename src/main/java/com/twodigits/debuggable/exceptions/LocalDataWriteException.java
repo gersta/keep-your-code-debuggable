@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LocalDataWriteException extends RuntimeException {
 
-    public LocalDataWriteException(String filepath, List<Integer> ids, IOException cause) {
+    public LocalDataWriteException(String filepath, List<String> ids, IOException cause) {
         System.out.printf("Problem writing query results to file %s for the given ids %s%n", filepath, ids);
 
         cause.printStackTrace();

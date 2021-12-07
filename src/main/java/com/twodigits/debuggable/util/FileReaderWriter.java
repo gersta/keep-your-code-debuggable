@@ -30,7 +30,7 @@ public class FileReaderWriter {
         this.readDirectory = readDirectory;
     }
 
-    public File writeFile(String prefix, List<Integer> ids, Object data) {
+    public File writeFile(String prefix, List<String> ids, Object data) {
         File file = getFileHandle(prefix, writeDirectory, ids);
 
         log.debug("Trying to write file to {}", file.getAbsolutePath());
@@ -44,7 +44,7 @@ public class FileReaderWriter {
         }
     }
 
-    public <T> T readFile(String prefix, List<Integer> ids, TypeReference<T> model) {
+    public <T> T readFile(String prefix, List<String> ids, TypeReference<T> model) {
         File file = getFileHandle(prefix, readDirectory, ids);
 
         try {
@@ -54,8 +54,8 @@ public class FileReaderWriter {
         }
     }
 
-    private File getFileHandle(String prefix, String directory, List<Integer> ids) {
-        String idsSeparatedByUnderscores = ids.stream().map(String::valueOf).collect(Collectors.joining("_"));
+    private File getFileHandle(String prefix, String directory, List<String> ids) {
+        String idsSeparatedByUnderscores = String.join("_", ids);
 
         directory = directory.endsWith("/") ? directory : directory + "/";
 
