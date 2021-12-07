@@ -1,6 +1,8 @@
 package com.twodigits.debuggable.util;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twodigits.debuggable.model.CommunityMember;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +15,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FileReaderWriterTest {
 
@@ -72,10 +73,19 @@ class FileReaderWriterTest {
 
     @Test
     void read_file_from_expected_location() throws IOException {
-        new ObjectMapper().writeValue(new File(TEST_RESOURCES_DIR + "/READ_7_8_9.json"), "Hello World");
+        CommunityMember member = CommunityMember.builder()
+                .id("1")
+                .firstname("Samwise")
+                .lastname("Gamgee")
+                .fieldOfExpertise("Java")
+                .entryDate("2012-12-08")
+                .build();
+        new ObjectMapper().writeValue(new File(TEST_RESOURCES_DIR + "/READ_7_8_9.json"), member);
 
-        String result = readerWriter.readFile("READ", Arrays.asList(7, 8, 9), String.class);
+        CommunityMember result = readerWriter.readFile("READ", Arrays.asList(7, 8, 9), new TypeReference<CommunityMember>() {});
 
-        assertEquals("Hello World", result);
+        assertAll(
+                () -> assertEquals("1", result.getId())
+        );
     }
 }

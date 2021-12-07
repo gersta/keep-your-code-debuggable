@@ -1,5 +1,6 @@
 package com.twodigits.debuggable.util;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twodigits.debuggable.exceptions.LocalDataReadException;
 import com.twodigits.debuggable.exceptions.LocalDataWriteException;
@@ -43,7 +44,7 @@ public class FileReaderWriter {
         }
     }
 
-    public <T> T readFile(String prefix, List<Integer> ids, Class<T> model) {
+    public <T> T readFile(String prefix, List<Integer> ids, TypeReference<T> model) {
         File file = getFileHandle(prefix, readDirectory, ids);
 
         try {
