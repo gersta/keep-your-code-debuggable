@@ -30,4 +30,11 @@ public class LocalCommunityMemberService implements ICommunityMemberService {
 
         return fileReader.readFile(DATABASE_PREFIX, Collections.emptyList(), new TypeReference<List<CommunityMember>>() {});
     }
+
+    @Override
+    public CommunityMember getMemberById(String id) {
+        log.info("Local: Getting member {}", id);
+
+        return fileReader.readFile(DATABASE_PREFIX, Collections.singletonList(id), new TypeReference<CommunityMember>() {});
+    }
 }

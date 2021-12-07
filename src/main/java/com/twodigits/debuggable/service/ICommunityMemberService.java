@@ -7,4 +7,6 @@ import java.util.List;
 public interface ICommunityMemberService {
 
     List<CommunityMember> getAllMembers();
+
+    CommunityMember getMemberById(String id);
 }

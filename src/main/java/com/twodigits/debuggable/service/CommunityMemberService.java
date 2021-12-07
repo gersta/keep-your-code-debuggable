@@ -7,8 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -31,5 +33,19 @@ public class CommunityMemberService implements ICommunityMemberService {
         fileWriter.writeFile(DATABASE_PREFIX, Collections.emptyList(), members);
 
         return members;
+    }
+
+    @Override
+    public CommunityMember getMemberById(String id) {
+        log.info("Server: Getting member {}", id);
+
+        Optional<CommunityMember> member = repository.findById(id);
+        if ( member.isPresent() ) {
+            fileWriter.writeFile(DATABASE_PREFIX, Collections.singletonList(id), member.get());
+
+            return member.get();
+        }
+
+        return new CommunityMember();
     }
 }
