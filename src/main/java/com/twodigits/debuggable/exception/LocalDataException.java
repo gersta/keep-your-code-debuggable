@@ -9,7 +9,7 @@ public class LocalDataException extends RuntimeException {
     
     public LocalDataException(String mode, String prefix, List<String> ids, String filename, Throwable cause) {
         log.error("There was a problem with mode {} to file {} with given data {}", mode, filename, ids);
-        
+
         cause.printStackTrace();
     }
 }
